@@ -1,0 +1,33 @@
+apply plugin: "java"
+apply plugin: "application"
+
+// 「application」プラグインを利用する場合はマインクラスを指定する。
+mainClassName = "main.MainTest"
+
+def defaultEncoding = 'UTF-8'
+compileJava.options.encoding = defaultEncoding
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+//リポジトリーの設定
+repositories{
+    mavenCentral()
+}
+
+dependencies{
+    testCompile "junit:junit:4.11"
+    compile 'commons-cli:commons-cli:1.2'
+}
+
+
+jar {
+    manifest {
+        attributes(
+            'Implementation-Title': 'Mychael Style Tools',
+            'Implementation-Version0': 1.0
+        )
+    }
+}
+javadoc {
+    //エンコーディングの
+    options.encoding = defaultEncoding
+}
