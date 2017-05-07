@@ -1,0 +1,31 @@
+// 共通の設定
+subprojects {
+    apply plugin: 'java'
+
+    def defaultEncoding = 'UTF-8'
+    compileJava.options.encoding = defaultEncoding
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    javadoc {
+        options.links <<    'http://docs.oracle.com/javase/jp/8/api'
+    }
+}
+
+// ライブラリのプロジェクト
+project(':arithmetic-lib'){}
+
+// アプリケーションプロジェクト
+project(':arithmetic-main'){
+    apply plugin : 'application'
+
+    mainClassName = 'com.example.cli.SimpleCalc'
+    applicationName = 'SimpleCalc'
+    dependencies{
+        compile project(':arithmetic-lib')
+    }
+    run {
+        standardInput = System.in
+    }
+}
