@@ -1,0 +1,6 @@
+﻿foreach($item in Get-Process){
+if ($item.Name -like "Note*"){
+Write-Output $item.Name.ToString()
+Stop-Process -InputObject $item
+}
+}
