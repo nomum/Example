@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+<overlay id="attachfilechecker"
+xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	<!--
+	<script type="application/x-javascript" src="chrome://mailcheck/content/mailchecker.js"/>
+	-->
+	<script type="application/x-javascript" src="chrome://mailcheck/content/mailchecker.js"/>
+	<script type="application/x-javascript" src="chrome://mailcheck/content/util.js"/>
+    <script type="application/x-javascript" src="chrome://global/content/nsUserSettings.js"/>
+	<toolbar id="composeToolbar2">
+		<toolbarbutton id="button-send" label="送信" now_label="送信" oncommand="if(checkMailandAddress() == true) goDoCommand('cmd_sendButton');"/>
+	</toolbar>
+	<keyset id="tasksKeys">
+		<key id="key_send" modifiers="accel" keycode="VK_RETURN" oncommand="if(checkMailandAddress() == true) goDoCommand('cmd_sendWithCheck');"/>
+	</keyset>
+</overlay>

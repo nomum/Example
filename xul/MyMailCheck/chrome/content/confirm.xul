@@ -1,0 +1,243 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet href="chrome://communicator/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://messenger/skin/prefPanels.css" type="text/css"?>
+<?xml-stylesheet href="chrome://communicator/skin/pref/pref.css" type="text/css"?>
+<?xml-stylesheet href="chrome://messenger/skin/messengercompose/messengercompose.css" type="text/css"?>
+
+<!--
+  //ondialogaccept="return ExecuteConfirm();"
+  //ondialogcancel="return CancelConfirm();"
+
+
+-->
+<dialog  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  xmlns:nc="http://home.netscape.com/NC-rdf#"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  id="mailConfirmDialog"
+  buttons="accept, cancel"
+  title="WARNING!!" 
+  flex="1"
+  ondialogaccept="return onAccept();"
+  ondialogcancel="return onCancel();"
+  width="450" height="600"
+  onload="onLoad()" persist="screenX screenY">
+
+	<vbox flex="1" align="left">
+		<label value="もしかして、メールの送信先が間違っていませんか？？" />
+
+		<spacer style="height:0.5em;"/>
+    
+    <hbox>
+    <label value="件名" />
+    <textbox id="subject" width="400" />
+    </hbox>
+		<!--
+		<textbox width="800" height="120" id="mailcheck.alartMailText" cols="5" multiline="true" readonly="true" />
+		-->
+
+		<!--
+		<textbox width="800" height="70" id="mailcheck.alartMailAddress" cols="3" multiline="true" readonly="true" />
+		-->
+		<!--
+		<spacer style="height:0.5em;"/>
+
+		<checkbox id="mailcheck.alartMailConfirm" label="問題ありません　メールを送信します" oncommand="MyCommand()"/>
+		-->
+		<spacer style="height:0.5em;"/>
+    <hbox>
+      <groupbox width="200" label="外部">
+        <caption label="外部"/>
+        <label value="送信先アドレス" />
+        <richlistbox id="outerToListBox" width="180" height="100">
+        </richlistbox>
+        <spacer style="height:0.5em;"/>
+        <label value="CCアドレス" />
+        <richlistbox id="outerCcListBox" width="180" height="100">
+        </richlistbox>
+        <spacer style="height:0.5em;"/>
+        <label value="BCCアドレス" />
+        <richlistbox id="outerBccListBox" width="180" height="100">
+      </richlistbox>
+      </groupbox>
+        <groupbox width="200" label="外部">
+        <caption label="内部"/>
+        <label value="送信先アドレス" />
+        <richlistbox id="innerToListBox" width="180" height="100">
+        </richlistbox>
+        <spacer style="height:0.5em;"/>
+        <label value="CCアドレス" />
+        <richlistbox id="innerCcListBox" width="180" height="100">
+        </richlistbox>
+        <spacer style="height:0.5em;"/>
+        <label value="BCCアドレス" />
+        <richlistbox id="innerBccListBox" width="180" height="100">
+      </richlistbox>
+      </groupbox>
+    </hbox>
+    <!--
+    <button id="test" onclick="isCheck()" >test</button>
+    -->
+	</vbox>
+    <script type="application/x-javascript"><![CDATA[
+    //==================
+    // 初期表示のイベント
+    //==================
+		function onLoad(){
+      var dialog = document.getElementById("mailConfirmDialog");
+      dialog.setAttribute("buttondisabledaccept",true);
+			//window.alert("test");
+			window.dump( "Some messages\n" );
+			Components.utils.reportError(dialog );
+      var acceptButt = document.documentElement.getButton("accept")
+      Components.utils.reportError(acceptButt );
+      var toList = [];
+      var ccList = [];
+      var bccList = [];
+      
+      //パラメータ取得
+      toList = window.arguments[0];
+      ccList = window.arguments[1];
+      bccList = window.arguments[2];
+      var from = window.arguments[3];
+      var subject = window.arguments[4];
+      var parent = window.arguments[5];
+      
+      document.getElementById("subject").value=subject;
+      
+      //リストボックスコンポーネント設定
+      Components.utils.reportError(toList.length );
+      //setRichList(document.getElementById("outerToListBox"), toList);
+      //setRichList(document.getElementById("outerCcListBox"), ccList);
+      //setRichList(document.getElementById("outerBccListBox"), bccList);
+      setRichList(from,"ToListBox", toList);
+      setRichList(from,"CcListBox", ccList);
+      setRichList(from,"BccListBox", bccList);
+      var acceptButton = document.documentElement.getButton("accept");
+      acceptButton.disabled = true;
+      //acceptButt.enble=true;
+			//rlist.add("aaa","bbb");
+		}
+    
+    //=======================
+    //リッチリストの設定を行う
+    //=======================
+    function setRichList(from ,richBoxName , addressList){
+      Components.utils.reportError("[START]setRichList");
+      Components.utils.reportError('inner' + richBoxName);
+      Components.utils.reportError('outer' + richBoxName);
+      var inner = document.getElementById('inner' + richBoxName);
+      var outer = document.getElementById('outer' + richBoxName);
+      Components.utils.reportError(inner);
+      Components.utils.reportError(outer);
+      
+      //Components.utils.reportError(from);
+      var fromDomain = parseDomain(from);
+      Components.utils.reportError(fromDomain);
+      //Components.utils.reportError(addressList.length);
+      Components.utils.reportError("roop-start-------------");
+      for (var i = 0 ; i < addressList.length ; i++){
+        Components.utils.reportError(addressList[i]);
+        var toDomain = parseDomain(addressList[i]);
+        Components.utils.reportError("todomain:" + toDomain);
+        Components.utils.reportError("fromdomain:" + fromDomain);
+        if (fromDomain == toDomain){
+          Components.utils.reportError("setRichList - add inner ");
+          //inner.appendChild(createRichItem(addressList[i]));
+          inner.appendChild(createTextItem(addressList[i]));
+          
+        }else {
+          Components.utils.reportError("setRichList - add outer ");
+          outer.appendChild(createRichItem(addressList[i]));
+        }
+        //richBox.appendChild(createRichItem(addressList[i]));
+      }
+      Components.utils.reportError("roop-end-------------");
+    }
+
+    //===================================
+    //リッチリスト内のアドレスのみ(内部の場合)    の子供を作成
+    //===================================
+    function createTextItem (address){
+      var item = document.createElement("listitem");
+      
+      item.setAttribute("label",address);
+      
+      return item;
+    }
+    //===================================
+    //リッチリスト内の(外部の場合)    の子供を作成
+    //===================================
+    function createRichItem(address){
+      var item = document.createElement('richListItem');
+      var chkbox  = document.createElement('checkbox');
+      chkbox.setAttribute('label',address);
+      chkbox.addEventListener('CheckboxStateChange',mailCheckboxClick,true);
+      item.appendChild(chkbox);
+      return item;
+    }
+    function mailCheckboxClick(event){
+      Components.utils.reportError("mailCheckboxClick-start-------------");
+      Components.utils.reportError(event.target.getAttribute('label'));
+      Components.utils.reportError(event.target.checked);
+      var acceptButton = document.documentElement.getButton("accept");
+      acceptButton.disabled=!isCheck();
+      Components.utils.reportError("mailCheckboxClick-end-------------");
+    }
+    
+    //======================
+    //Dialog accept処理
+    //======================
+    function onAccept(){
+      var parentWindow = window.arguments[5];
+      parentWindow.confirmOK = true;
+      return window.confirm("送信してよろしいですか？");
+    }
+    //======================
+    //Dialog Cancel処理
+    //======================
+    function onCancel(){
+      var parentWindow = window.arguments[5];
+      parentWindow.confirmOK = false;
+      return window.confirm("送信を中止してよろしいですか？");
+      
+    }
+    function isCheck(){
+      var ret = false;
+       if ( isCheckItem(document.getElementById("outerToListBox")) == false){
+        return false;
+       }
+       if (isCheckItem(document.getElementById("outerCcListBox")) == false){
+          return false;
+       }
+       if ( isCheckItem(document.getElementById("outerBccListBox")) == false ){
+        return false;
+       }
+       return true;
+    }
+    function isCheckItem(list){
+      Components.utils.reportError("isCheck--------------------" + list.getAttribute('id'));
+      var childNodes = list.childNodes;
+      Components.utils.reportError(childNodes);
+      for (var i = 0 ; i < childNodes.length ; i++){
+        var richItem = childNodes[i];
+        //Components.utils.reportError(richItem);
+        //子供は一個しか設定してない
+        var check = richItem.firstChild;
+        Components.utils.reportError(check);
+        Components.utils.reportError("ieChecked : " + richItem.firstChild.checked);
+        if (richItem.firstChild.checked == false){
+          return false;
+        }
+        
+      }
+      Components.utils.reportError("isCheck--------------------");
+      return true;
+    }
+ 
+    ]]></script>
+    <script type="application/x-javascript" src="chrome://mailcheck/content/util.js"/>
+<!--
+<script type="application/x-javascript" src="chrome://mailcheck/content/alartWindow.js"/>
+-->
+</dialog>

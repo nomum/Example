@@ -1,0 +1,2 @@
+content mailcheck chrome/content/
+overlay chrome://messenger/content/messengercompose/messengercompose.xul chrome://mailcheck/content/mailchecker.xul
