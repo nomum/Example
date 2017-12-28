@@ -114,7 +114,9 @@
       setRichList(from,"CcListBox", ccList);
       setRichList(from,"BccListBox", bccList);
       var acceptButton = document.documentElement.getButton("accept");
-      acceptButton.disabled = true;
+      //acceptButton.disabled = true;
+      acceptButton.disabled=!isCheck();
+
       //acceptButt.enble=true;
 			//rlist.add("aaa","bbb");
 		}
