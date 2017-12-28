@@ -20,7 +20,7 @@
   flex="1"
   ondialogaccept="return onAccept();"
   ondialogcancel="return onCancel();"
-  width="450" height="600"
+  width="650" height="580"
   onload="onLoad()" persist="screenX screenY">
 
 	<vbox flex="1" align="left">
@@ -32,46 +32,35 @@
     <label value="件名" />
     <textbox id="subject" width="400" />
     </hbox>
-		<!--
-		<textbox width="800" height="120" id="mailcheck.alartMailText" cols="5" multiline="true" readonly="true" />
-		-->
 
-		<!--
-		<textbox width="800" height="70" id="mailcheck.alartMailAddress" cols="3" multiline="true" readonly="true" />
-		-->
-		<!--
-		<spacer style="height:0.5em;"/>
-
-		<checkbox id="mailcheck.alartMailConfirm" label="問題ありません　メールを送信します" oncommand="MyCommand()"/>
-		-->
 		<spacer style="height:0.5em;"/>
     <hbox>
-      <groupbox width="200" label="外部">
+      <groupbox width="300" label="外部">
         <caption label="外部"/>
         <label value="送信先アドレス" />
-        <richlistbox id="outerToListBox" width="180" height="100">
+        <richlistbox id="outerToListBox" width="280" height="100">
         </richlistbox>
         <spacer style="height:0.5em;"/>
         <label value="CCアドレス" />
-        <richlistbox id="outerCcListBox" width="180" height="100">
+        <richlistbox id="outerCcListBox" width="280" height="100">
         </richlistbox>
         <spacer style="height:0.5em;"/>
         <label value="BCCアドレス" />
-        <richlistbox id="outerBccListBox" width="180" height="100">
+        <richlistbox id="outerBccListBox" width="280" height="100">
       </richlistbox>
       </groupbox>
-        <groupbox width="200" label="外部">
+        <groupbox width="300" label="外部">
         <caption label="内部"/>
         <label value="送信先アドレス" />
-        <richlistbox id="innerToListBox" width="180" height="100">
+        <richlistbox id="innerToListBox" width="280" height="100">
         </richlistbox>
         <spacer style="height:0.5em;"/>
         <label value="CCアドレス" />
-        <richlistbox id="innerCcListBox" width="180" height="100">
+        <richlistbox id="innerCcListBox" width="280" height="100">
         </richlistbox>
         <spacer style="height:0.5em;"/>
         <label value="BCCアドレス" />
-        <richlistbox id="innerBccListBox" width="180" height="100">
+        <richlistbox id="innerBccListBox" width="280" height="100">
       </richlistbox>
       </groupbox>
     </hbox>
