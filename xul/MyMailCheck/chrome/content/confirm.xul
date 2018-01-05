@@ -30,7 +30,11 @@
     
     <hbox>
     <label value="件名" />
-    <textbox id="subject" width="400" />
+    <textbox id="subject" width="400"  disabled="true"/>
+    </hbox>
+    <hbox>
+    <label value="添付ファイルサイズ"/>
+    <textbox id="attacheSize" width="200" disabled="true" />
     </hbox>
 
 		<spacer style="height:0.5em;"/>
@@ -90,9 +94,11 @@
       bccList = window.arguments[2];
       var from = window.arguments[3];
       var subject = window.arguments[4];
-      var parent = window.arguments[5];
+      var attacheSize = window.arguments[5];
+      var parent = window.arguments[6];
       
       document.getElementById("subject").value=subject;
+      document.getElementById("attacheSize").value=attacheSize;
       
       //リストボックスコンポーネント設定
       Components.utils.reportError(toList.length );

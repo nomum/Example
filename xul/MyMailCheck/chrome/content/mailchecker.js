@@ -31,8 +31,10 @@ function checkMailandAddress(){
 	Components.utils.reportError( 'Some messages' );
 	
 	var subject = document.getElementById("msgSubject");
+	var attachSize = document.getElementById("attachmentBucketSize");
+	
 	//var win = window.openDialog("chrome://mailcheck/content/confirm.xul", "AlartWindow", "resizable,chrome,modal,titlebar,centerscreen",dspMessageMail, dspMessageAddr, window);
-	var win = window.openDialog("chrome://mailcheck/content/confirm.xul", "AlartWindow", "resizable,chrome,modal,titlebar,centerscreen",toList,ccList,bccList,from,subject.value, window);
+	var win = window.openDialog("chrome://mailcheck/content/confirm.xul", "AlartWindow", "resizable,chrome,modal,titlebar,centerscreen",toList,ccList,bccList,from,subject.value,attachSize.value, window);
 	Components.utils.reportError('return : ' + window.confirmOK);
 	
 	//return false;
