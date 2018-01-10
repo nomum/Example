@@ -186,7 +186,7 @@
     //Dialog accept処理
     //======================
     function onAccept(){
-      var parentWindow = window.arguments[5];
+      var parentWindow = window.arguments[6];
       parentWindow.confirmOK = true;
       return window.confirm("送信してよろしいですか？");
     }
@@ -194,7 +194,7 @@
     //Dialog Cancel処理
     //======================
     function onCancel(){
-      var parentWindow = window.arguments[5];
+      var parentWindow = window.arguments[6];
       parentWindow.confirmOK = false;
       return window.confirm("送信を中止してよろしいですか？");
       
