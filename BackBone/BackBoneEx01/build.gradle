@@ -1,0 +1,67 @@
+
+ buildscript {
+   ext {
+     springBootVersion = '1.5.4.RELEASE'
+   }
+   repositories {
+     mavenCentral()
+   }
+   dependencies {
+     classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+     classpath( 'org.springframework:springloaded:1.2.5.RELEASE')
+   }
+ }
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'eclipse'
+apply plugin: "org.springframework.boot"
+
+sourceCompatibility = 1.8
+targetCompatibility = '1.8'
+
+//sourceCompatibility = 1.5
+version = '1.0'
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Gradle Quickstart',
+                   'Implementation-Version': version
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+
+    compile("org.springframework.boot:spring-boot-starter-web")
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+
+    // for Thymeleaf
+	compile "org.springframework.boot:spring-boot-starter-thymeleaf:${springBootVersion}"
+    compile("org.springframework.boot:spring-boot-devtools")
+
+    compile("org.projectlombok:lombok:1.16.18")
+    compile 'org.jsoup:jsoup:1.11.1'
+	compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.0'
+
+    // Use JUnit test framework
+    testCompile 'junit:junit:4.12'
+
+}
+
+
+bootRepackage {
+    mainClass = 'BackboneEx.ex01.Ex01Main'
+}
+eclipse {
+  classpath {
+    containers "org.springsource.ide.eclipse.gradle.classpathcontainer"
+  }
+}
+
+test {
+    systemProperties 'property': 'value'
+}

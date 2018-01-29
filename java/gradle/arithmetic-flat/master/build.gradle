@@ -1,0 +1,70 @@
+// 共通の設定
+subprojects{
+  apply plugin: 'java'
+  apply plugin: 'eclipse'
+
+  def defalutEnconding = 'UTF-8'
+  compileJava.options.encoding = defalutEnconding;
+
+  sourceCompatibility = 1.8
+  targetCompatibility = 1.8
+
+  javadoc {
+      options.links << 'http://docs.oracle.com/javase/jp/8/api'
+  }
+  eclipse {
+    classpath {
+      containers =[
+      'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7',
+        'org.springsource.ide.eclipse.gradle.classpathcontainer'  // Gradle IDEのクラスパスコンテナ
+      ]
+      file {
+        // .classpathファイルの出力時にクラスパスからJARエントリを除外する
+        whenMerged { classpath ->
+          classpath.configure classpath.entries.grep { entry ->
+            !(entry instanceof org.gradle.plugins.ide.eclipse.model.Library)
+          }
+        }
+      }
+    }
+    /*
+    jdt {
+      file {
+        withProperties { properties ->
+	  def rootPropertes = new Properties()
+          new File(rootProject.projectDir, '.settings/org.eclipse.jdt.core.prefs.xml')
+	    .withReader { rootProperties.load it }
+          properties.putAll rootProperties.findAll { k, v -> k.startsWith 'org.eclipse.jdt.core.formatter' }
+        }
+      }
+    }
+    */
+
+
+  }
+}
+task buildSubprojects{
+  description 'build sub projects'
+  dependsOn subprojects*.tasks.build
+}
+
+
+apply plugin: 'eclipse'
+
+//ライブラリプロジェクト
+project('arithmetic-lib'){}
+
+//アプリケーションプロジェクト
+project('arithmetic-main'){
+    apply plugin: 'application'
+
+    mainClassName = 'test01'
+    applicationName = 'Test'
+
+    dependencies{
+        compile project(':arithmetic-lib')
+    }
+    run{
+        standardInput = System.in
+    }
+}

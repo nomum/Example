@@ -1,0 +1,5 @@
+#org.springsource.ide.eclipse.gradle.core.preferences.GradleProjectPreferences
+#Thu Jan 18 13:46:28 JST 2018
+build.family.org.gradle.tooling.model.eclipse.HierarchicalEclipseProject=;../arithmetic-lib;../arithmetic-main;
+org.springsource.ide.eclipse.gradle.linkedresources=
+org.springsource.ide.eclipse.gradle.rootprojectloc=

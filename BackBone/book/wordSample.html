@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<title>対訳表示</title>
+<style>
+table, td, th {
+	border-color: #B0C4DE;
+	border-collapse: collapse;
+	border-style: solid;
+	border-width: 2px;
+	vertical-align: top;
+	word-break: break-all;
+}
+
+.table_header {
+	text-align: center;
+	background-color: #F0FFE0;
+}
+
+#temp_dom {
+	display: none;
+}
+
+.tooltip_content {
+	font-weight: normal;
+	display: none;
+	padding: 0px;
+	margin-left: 0px;
+	padding: 8px;
+	width: 98%;
+}
+
+.tooltip:hover .tooltip_content {
+	font-weight: normal;
+	display: inline;
+	position: absolute;
+	border: 1px solid #cccccc;
+	background: #F8F8F8;
+	color: #414141;
+	z-index: 2;
+	border: 2px solid #aaa;
+}
+
+html, body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	font-family: Meiryo;
+
+}
+body {
+	font-family: meiryo;
+	font-size: 16px;
+}
+#bunban {
+	text-align: left;
+
+}
+#container {
+	display: flex;
+	flex-direction: column;
+	margin: 0;
+	padding: 0;
+	min-height: 100vh;
+	height: 100%; /* for IE11 */
+}
+
+#header {
+	flex-shrink: 0;
+	padding: 0 0;
+	background: #ddd;
+	flex-direction: row;
+}
+
+#body {
+	display: flex;
+	flex-direction: row;
+	flex: 1;
+	margin: 0;
+	padding: 0;
+
+
+}
+#contents{
+	flex: 1;
+	overflow-y: auto;
+	margin: 0;
+	padding: 0;
+}
+#spectrumArea {
+
+	flex-basis: 100px;
+	background: #eee;
+	overflow-y: hidden;
+	margin: 0;
+	padding: 0;
+
+}
+#SpectrumBar{
+	background: #000;
+}
+
+.header-icon{
+	width:50px;
+	height:50px;
+	border:solid;
+	margin: 0px;
+	border-width: 1px;
+}
+.header-icon-add{
+	width:15px;
+	height:50px;
+	border:solid;
+	margin: 0px;
+	border-width: 1px;
+}
+
+#header p {
+  vertical-align: middle;
+}
+p.title{
+	font-size:18px;
+	font-weight: bold;
+	margin : 0px;
+	padding:0px;
+}
+div.title {
+	font-size:18px;
+	font-weight: bold;
+}
+
+hitwordHeader p {
+  position: relative;
+}
+
+.arrow_box {
+  display: none;
+  position: absolute;
+  padding: 16px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  background: #333;
+  color: #fff;
+}
+
+.arrow_box:after {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  margin-left: -10px;
+  border: solid transparent;
+  border-color: rgba(51, 51, 51, 0);
+  border-bottom-color: #333;
+  border-width: 10px;
+  pointer-events: none;
+  content: " ";
+}
+#hit {
+	padding : 0px;
+	margin-top : 0px;
+	margin-left : 5px;
+}
+div.hit {
+	
+}
+div.hit > ul {
+	list-style-type: none;
+}
+div.hit > ul > li {
+	display: flex;
+	flex-wrap: nowrap;
+
+}
+.hitword-title{
+	flex : 0,1,120px;
+	min-width: 130px;
+}
+.hitword-words{
+	flex : 0,2,auto;
+	margin-right: 10px;
+}
+/* //黄色、水色、銀は黒、それ以外は白 */
+.hitword-col01{
+	background: red;
+	color: white;
+}
+.hitword-col02{
+	background: brown;
+	color:white;
+}
+.hitword-col03{
+	background: lime;
+	color:white;
+}
+.hitword-col04{
+	background: green;
+	color:white;
+}
+.hitword-col05{
+	background: yellow;
+	color:black;
+}
+.hitword-col06{
+	background: olive;
+	color:white;
+}
+.hitword-col7{
+	background: blue;
+	color:white;
+}
+.hitword-col08{
+	background: navy;
+	color:white;
+}
+.hitword-col09{
+	background: hotpink;
+	color:white;
+}
+.hitword-col10{
+	background: darkViolet;
+	color:white;
+}
+.hitword-col11{
+	background: aqua;
+	color:black;
+}
+.hitword-col12{
+	background: seagreen;
+	color:white;
+}
+.hitword-col13{
+	background: silver;
+	color:black;
+}
+.hitword-col14{
+	background: gray;
+	color:white;
+}
+
+
+    .messageBox {
+        border:  solid 1px rgb(0,0,0);
+        width:95%;
+        margin-left:15px;
+        padding-top: 10px;
+        padding-left: 15px;
+        height: 40px;
+        color: darkred;
+            
+    }
+
+</style>
+<style type="text/css" media="print">
+#header {
+	display : none;
+}
+#body {
+	padding: 0 1em;
+	display : table;
+}
+#SpectrumArea{
+	display : none;
+}
+</style>
+</head>
+<body>
+	<div id="container">
+		<div id="header">
+
+
+			<img id="PrintIcon" class="header-icon" src="../public/img\Printer_32.ico" /><img id="SrchWordIcon" class="header-icon" src="../public/img/SrchWord_32.ico" /><img id="WordReverseIcon" class="header-icon" src="../public/img/WordReverse_32.ico" /><svg id="SpectrumButton" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 50" width="15" height="50" class="header-icon-add" >
+			<polygon points="3 20 12 20 7 25" stroke="black" ></polygon>
+
+			</svg>
+			<p id="SpectrumOption" class="arrow_box">
+
+			<!--
+			<span id="SpectrumOn">●スペクトル表示</span><br/>
+			<span id="SpectrumOff">●スペクトル非表示</span>
+			 -->
+			</p><img id="HelpIcon" class="header-icon" src="../public/img/Help_32.ico" />
+			<!--
+			<input type="button" id="tb" value="テスト" />
+			 -->
+			<!--
+			<p>
+				文献番号：<span id="bunban">CNA 000000001</span>
+			</p>
+			 -->
+			 <!--
+			<div id="hitwordHeader">
+				<p id="hit">
+					ヒットワード<span id="hitword"></span>
+				</p>
+				<p id="searchWords" class="arrow_box">
+
+				</p>
+			</div>
+			 -->
+		</div>
+		<div id="body">
+			<div id="contents">
+				<div id="message"></div>
+				<div id="hitwordHeader">
+					<p class="title">検索ワード</p>
+				  <div id="hit" class="hit">
+            <ul>
+							<li>
+								<div class="hitword-title" >
+								ヒットワード：
+								</div>
+								<div class="hitword-words" >
+									<span class="hitword-col01"> 特許</span>,<span class="hitword-col02">あいうえお</span>,<span class="hitword-col03">あいうえお</span>,<span class="hitword-col04">あいうえお</span>,<span class="hitword-col05">あいうえお</span>,<span class="hitword-col06">あいうえお</span>,<span class="hitword-col07">あいうえお</span>,<span class="hitword-col08">あいうえお</span>,<span class="hitword-col09">あいうえお</span>,<span class="hitword-col10">あいうえお</span>,<span class="hitword-col11">あいうえお</span>,<span class="hitword-col12">あいうえお</span>,<span class="hitword-col13">あいうえお</span>,<span class="hitword-col14">あいうえお</span>,
+									<span class="hitword-col01"> 特許</span>,<span class="hitword-col02">あいうえお</span>,<span class="hitword-col03">あいうえお</span>,<span class="hitword-col04">あいうえお</span>,<span class="hitword-col05">あいうえお</span>,<span class="hitword-col06">あいうえお</span>,<span class="hitword-col07">あいうえお</span>,<span class="hitword-col08">あいうえお</span>,<span class="hitword-col09">あいうえお</span>,<span class="hitword-col10">あいうえお</span>,<span class="hitword-col11">あいうえお</span>,<span class="hitword-col12">あいうえお</span>,<span class="hitword-col13">あいうえお</span>,<span class="hitword-col14">あいうえお</span>,
+									<span class="hitword-col01"> 特許</span>,<span class="hitword-col02">あいうえお</span>,<span class="hitword-col03">あいうえお</span>,<span class="hitword-col04">あいうえお</span>,<span class="hitword-col05">あいうえお</span>,<span class="hitword-col06">あいうえお</span>,<span class="hitword-col07">あいうえお</span>,<span class="hitword-col08">あいうえお</span>,<span class="hitword-col09">あいうえお</span>,<span class="hitword-col10">あいうえお</span>,<span class="hitword-col11">あいうえお</span>,<span class="hitword-col12">あいうえお</span>,<span class="hitword-col13">あいうえお</span>,<span class="hitword-col14">あいうえお</span>
+								</div>
+							
+							</li>
+							<li>
+								<div class="hitword-title" >
+								ジャンプワード：
+								</div>
+								<div class="hitword-words" >
+									<span class="hitword-col01"> 特許</span>,<span class="hitword-col02">あいうえお</span>,<span class="hitword-col03">あいうえお</span>,<span class="hitword-col04">あいうえお</span>,<span class="hitword-col05">あいうえお</span>,<span class="hitword-col06">あいうえお</span>,<span class="hitword-col07">あいうえお</span>,<span class="hitword-col08">あいうえお</span>,<span class="hitword-col09">あいうえお</span>,<span class="hitword-col10">あいうえお</span>,<span class="hitword-col11">あいうえお</span>,<span class="hitword-col12">あいうえお</span>,<span class="hitword-col13">あいうえお</span>,<span class="hitword-col14">あいうえお</span>,
+									<span class="hitword-col01"> 特許</span>,<span class="hitword-col02">あいうえお</span>,<span class="hitword-col03">あいうえお</span>,<span class="hitword-col04">あいうえお</span>,<span class="hitword-col05">あいうえお</span>,<span class="hitword-col06">あいうえお</span>,<span class="hitword-col07">あいうえお</span>,<span class="hitword-col08">あいうえお</span>,<span class="hitword-col09">あいうえお</span>,<span class="hitword-col10">あいうえお</span>,<span class="hitword-col11">あいうえお</span>,<span class="hitword-col12">あいうえお</span>,<span class="hitword-col13">あいうえお</span>,<span class="hitword-col14">あいうえお</span>,
+									<span class="hitword-col01"> 特許</span>,<span class="hitword-col02">あいうえお</span>,<span class="hitword-col03">あいうえお</span>,<span class="hitword-col04">あいうえお</span>,<span class="hitword-col05">あいうえお</span>,<span class="hitword-col06">あいうえお</span>,<span class="hitword-col07">あいうえお</span>,<span class="hitword-col08">あいうえお</span>,<span class="hitword-col09">あいうえお</span>,<span class="hitword-col10">あいうえお</span>,<span class="hitword-col11">あいうえお</span>,<span class="hitword-col12">あいうえお</span>,<span class="hitword-col13">あいうえお</span>,<span class="hitword-col14">あいうえお</span>
+								</div>
+							
+							</li>
+							<li>
+								<div class="hitword-title" >
+								追加ワード：
+								</div>
+								<div class="hitword-words" >
+									<span class="hitword-col01"> 特許</span>,<span class="hitword-col02">あいうえお</span>,<span class="hitword-col03">あいうえお</span>,<span class="hitword-col04">あいうえお</span>,<span class="hitword-col05">あいうえお</span>,<span class="hitword-col06">あいうえお</span>,<span class="hitword-col07">あいうえお</span>,<span class="hitword-col08">あいうえお</span>,<span class="hitword-col09">あいうえお</span>,<span class="hitword-col10">あいうえお</span>,<span class="hitword-col11">あいうえお</span>,<span class="hitword-col12">あいうえお</span>,<span class="hitword-col13">あいうえお</span>,<span class="hitword-col14">あいうえお</span>,
+									<span class="hitword-col01"> 特許</span>,<span class="hitword-col02">あいうえお</span>,<span class="hitword-col03">あいうえお</span>,<span class="hitword-col04">あいうえお</span>,<span class="hitword-col05">あいうえお</span>,<span class="hitword-col06">あいうえお</span>,<span class="hitword-col07">あいうえお</span>,<span class="hitword-col08">あいうえお</span>,<span class="hitword-col09">あいうえお</span>,<span class="hitword-col10">あいうえお</span>,<span class="hitword-col11">あいうえお</span>,<span class="hitword-col12">あいうえお</span>,<span class="hitword-col13">あいうえお</span>,<span class="hitword-col14">あいうえお</span>,
+									<span class="hitword-col01"> 特許</span>,<span class="hitword-col02">あいうえお</span>,<span class="hitword-col03">あいうえお</span>,<span class="hitword-col04">あいうえお</span>,<span class="hitword-col05">あいうえお</span>,<span class="hitword-col06">あいうえお</span>,<span class="hitword-col07">あいうえお</span>,<span class="hitword-col08">あいうえお</span>,<span class="hitword-col09">あいうえお</span>,<span class="hitword-col10">あいうえお</span>,<span class="hitword-col11">あいうえお</span>,<span class="hitword-col12">あいうえお</span>,<span class="hitword-col13">あいうえお</span>,<span class="hitword-col14">あいうえお</span>
+								</div>
+							
+							</li>
+						</ul>
+					</div>
+					
+					
+				
+				</div>
+				<div id="bunban" class="title">CNA 000000001</div>
+                <div class="messageBox">サーバエラーです。</div>
+				<table id="dataTable" style='table-layout: fixed; width: 100%;'>
+
+				</table>
+			</div>
+			<div id="SpectrumArea" style="display : none;">
+				<canvas id="SpectrumBar" style="width: 100px; height: 100%"></canvas>
+			</div>
+		</div>
+		　
+	</div>
+
+
+
+	 <script th:inline="javascript">
+	</script>
+
+
+</body>
+</html>

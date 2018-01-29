@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <title>BackBone Example 01</title>
+</head>
+<body>
+  <!--
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+		crossorigin="anonymous"></script>
+  -->
+  <script type='text/javascript' src='./js/external/JQuery.js'></script>
+  <script type='text/javascript' src='./js/external/Underscore.js'></script>
+	<script type='text/javascript' src='./js/external/Backbone.js'></script>
+  <script type='text/javascript'>
+  $(function() {
+    /*
+      console.log('ready');
+      var SampleView = Backbone.View.extend({}); // (1)
+      var sampleView = new SampleView(); // (2)
+      $('body').append(sampleView.el); // (3)
+      console.log('ready-end');
+      */
+      var Book = Backbone.Model.extend({
+        urlRoot:'http://localhost:8088/books/',
+        initialize :function(){
+          console.log('a New Book');
+          this.on("change",function(){
+            console.log("model change!");
+            if (this.hasChanged('name')){
+              console.log('name change:' + this.previous('name') + ' to ' + this.get('name') );
+            }else if(this.hasChanged('author')){
+              console.log('author change');
+            }
+            console.log('Changed attributes:' + JSON.stringify(this.changed));
+          });
+          this.on("change:name",function(){
+            console.log("name chagne");
+          });
+        },
+        defaults : {
+          name : 'BookTitle',
+          author: 'No one'
+        },
+        printDetail : function(){
+          console.log(this.toJSON());
+        }
+      });
+      var book = new Book();
+      console.log(book.toJSON());
+      console.log('title:' + book.get('name'));
+      
+      var book2 = new Book({name:'name2',author:'auhtor2'});
+      console.log(book2.toJSON());
+      book2.set('name','nameChange');
+      book2.set('name','nameChange2' , {silent:true});
+      console.log(book2.toJSON());
+      book2.printDetail();
+      
+      
+      book.save(book.attributes,{
+        success :function(model,response,options){
+          console.log('Model saved');
+          console.log('id:' + book.get('id'));
+        },
+        error :function(model,xhr,options){
+          console.log('Failed to save book');
+        }
+      });
+  });
+  </script>
+</body>
+</html>
