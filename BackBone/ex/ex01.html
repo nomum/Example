@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <title>templateの確認</title>
+</head>
+<body>
+<script src="js/external/JQuery.js"></script>
+<script src="js/external/Underscore.js"></script>
+<script src="js/external/Backbone.js"></script>
+<script>
+Book = Backbone.model.extend({
+  defaults:{
+    name : 'Book Title',
+    author: 'No One'
+  }
+});
+var Library = Backbone.Collection.extend({
+  model:Book,
+  initialize : fcuntion(){
+    console.log('Creating a new library collection');
+  }
+});
+</script>
+</body>
+</html>
