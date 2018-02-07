@@ -1,3 +1,3 @@
-./db
-./db.tmp
-./db-apache
+/db/
+/db.tmp/
+/db-apache/
