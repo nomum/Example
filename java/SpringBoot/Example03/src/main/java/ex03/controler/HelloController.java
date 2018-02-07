@@ -33,6 +33,8 @@ public class HelloController{
         System.out.println("[END]/ - GET");
         return mav;
     }
+    
+    @Transactional(readOnly=false)
     @RequestMapping(value="/" , method=RequestMethod.POST)
     public ModelAndView form(
         @ModelAttribute("formModel") MyData myData,
