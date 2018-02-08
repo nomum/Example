@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 import ex03.repository.MyDataRepository;
 import ex03.entity.MyData;
@@ -33,7 +34,7 @@ public class HelloController{
         System.out.println("[END]/ - GET");
         return mav;
     }
-    
+
     @Transactional(readOnly=false)
     @RequestMapping(value="/" , method=RequestMethod.POST)
     public ModelAndView form(
@@ -44,5 +45,28 @@ public class HelloController{
         repository.saveAndFlush(myData);
         System.out.println("[START]/ - POST");
         return new ModelAndView("redirect:/");
+    }
+
+    @RequestMapping(value="/edit/{id}" , method=RequestMethod.GET)
+    public ModelAndView edit(@ModelAttribute MyData mydata , @PathVariable long id , ModelAndView mav){
+        mav.setViewName("edit");
+        mav.addObject("title","edit mydata.");
+        MyData data = repository.findById((Long)id);
+        mav.addObject("formModel",data);
+        return mav;
+    }
+    @RequestMapping(value="/edit" , method = RequestMethod.POST)
+    @Transactional(readOnly = false)
+    public ModelAndView update(@ModelAttribute MyData mydata,ModelAndView mav){
+        repository.saveAndFlush(mydata);
+        return new ModelAndView("redirect:/");
+    }
+    /**
+     * 初期化処理
+     */
+    //@PostConstruct
+    public void init()
+    {
+
     }
 }
