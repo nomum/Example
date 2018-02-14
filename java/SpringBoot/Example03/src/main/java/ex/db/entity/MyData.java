@@ -1,4 +1,4 @@
-package ex03.entity;
+package ex.db.entity;
 
 //import javax.annotation.processing.Generated;
 //import javax.persistence.

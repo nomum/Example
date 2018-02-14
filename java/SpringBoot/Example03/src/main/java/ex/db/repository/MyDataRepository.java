@@ -1,6 +1,6 @@
-package ex03.repository;
+package ex.db.repository;
 
-import ex03.entity.MyData;
+import ex.db.entity.MyData;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

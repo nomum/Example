@@ -26,7 +26,7 @@
     <body>
         <h1 th:text="#{msg}">hello page</h1>
         <table>
-            <form method="post" action="/" th:object="${formModel}">
+            <form method="post" action="/db/" th:object="${formModel}">
                 <tr>
                     <td><label for="name">名前</label></td>
                     <td><input type="text" name="name" th:value="*{name}"/></td>
