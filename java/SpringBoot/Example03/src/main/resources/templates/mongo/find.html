@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8" />
+        <title>mongo find page</title>
+        <link href="/css/app.css" type="text/css" rel="stylesheet" />
+
+    </head>
+    <body>
+        <h1 th:text="${title}">find page</h1>
+        <p th:text="${msg}" />
+        <table>
+            <form action="/mongo/find" method="POST">
+                <tr>
+                    <td>検索</td>
+                    <td><input type="text" name="find" size="20" th:value="${value}" /> </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" /> </td>
+                </tr>
+            </form>
+        </table>
+        <hr/>
+        <table>
+            <tr>
+                <th>名前</th>
+                <th>メモ</th>
+                <th>日時</th>
+            </tr>
+            <tr th:each="obj : ${dataList}" >
+                <td th:text="${obj.name}"/>
+                <td th:text="${obj.memo}"/>
+                <td th:text="${obj.date}"/>
+            </tr>
+        </table>
+    </body>
+</html>

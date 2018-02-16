@@ -7,7 +7,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import ex.db.repository.MyDataRepository;
 import ex.db.entity.MyData;
 
@@ -25,7 +28,9 @@ public class HelloController{
         System.out.println("[START]/db/ - GET");
         mav.setViewName("/db/index");
         mav.addObject("msg","this is sample content.");
-        Iterable<MyData> list = repository.findAll();
+        //Iterable<MyData> list = repository.findAll();
+        Iterable<MyData> list = repository.findAllOrderByName();
+        
         mav.addObject("datalist",list);
         list.forEach(val ->{
             System.out.println(val.getName());
@@ -38,13 +43,27 @@ public class HelloController{
     @Transactional(readOnly=false)
     @RequestMapping(value="/db/" , method=RequestMethod.POST)
     public ModelAndView form(
-        @ModelAttribute("formModel") MyData myData,
+        @ModelAttribute("formModel") @Validated MyData myData,
+        BindingResult result,
         ModelAndView mav
     ){
+        ModelAndView res = null;
+        if (!result.hasErrors()){
+            //エラーなしの場合登録
+            repository.saveAndFlush(myData);
+            res = new ModelAndView("redirect:/db/");
+        }else {
+            mav.setViewName("/db/index");
+            mav.addObject("msg","sorry, error is occured....");
+            Iterable<MyData> list = repository.findAll();
+            res = mav;
+        }
+        return  res;
+        /*
         System.out.println("[START]/db/ - POST");
         repository.saveAndFlush(myData);
         System.out.println("[START]/db/ - POST");
-        return new ModelAndView("redirect:/db/");
+        return new ModelAndView("redirect:/db/");*/
     }
 
     @RequestMapping(value="/db/edit/{id}" , method=RequestMethod.GET)
@@ -60,6 +79,21 @@ public class HelloController{
     public ModelAndView update(@ModelAttribute MyData mydata,ModelAndView mav){
         repository.saveAndFlush(mydata);
         return new ModelAndView("redirect:/db/");
+    }
+
+    @RequestMapping(value="/db/delete/{id}" , method =RequestMethod.GET)
+    public ModelAndView delete(@PathVariable int id , ModelAndView mav){
+        mav.setViewName("/db/delelte");
+        mav.addObject("title","delte mydata.");
+        MyData data = repository.findById((long)id);
+        mav.addObject("formModel",data);
+        return mav;
+    }
+    @RequestMapping(value="/db/delete" ,method=RequestMethod.POST)
+    @Transactional(readOnly=false)
+    public ModelAndView remove(@RequestParam long id,ModelAndView mav){
+        repository.delete(id);
+        return new ModelAndView("redirect:/db");
     }
     /**
      * 初期化処理
