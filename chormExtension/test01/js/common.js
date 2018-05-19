@@ -9,7 +9,7 @@ $(function(){
     );
     */
     console.log($("#ScheduleContent div:first"));
-    $("#ScheduleContent div:first").append("<input id='customFilter' style='height:20px;' type='button' value='テスト' >")
+    $("#ScheduleContent div:first").append("<input id='customFilter' style='font-weight: bold;padding: 0.25em 0.5em;text-decoration: none;color: #00BCD4;background-color: #ECECEC;border-style: none;  border-radius: 0.5em;    ' type='button' value='チーム絞り込み' >")
     //console.log("a");
     
     $("#customFilter").on("click",function(e){
