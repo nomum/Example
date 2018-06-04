@@ -1,0 +1,7 @@
+body: { padding: 10px; }
+
+div.header,
+div.content {
+  width: 580px;
+  margin-bottom: 5px;
+}
