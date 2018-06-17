@@ -16,19 +16,26 @@
         
     </div>
     <div class="content">
-        <!--
-        <h2>行動予定のグループ</h2>
-        <select id="GroupSelect" >
-            <option>aaaa</option>
-            <option>BBBB</option>
-        </select>
-        <br>
-        -->
+
         <h1>行動予定の絞り込み</h1>
         <input type="text" id="UserList" /><br>
         ※カンマ区切りで社員番号を入力してください。(0001、0002等４桁0埋め)
         <br>
         <a href="#" id="entiry" >登録</a>
+        <br>
+        <h1>行動予定チーム絞り込みのテスト</h1>
+        <select id="teamSelect">
+            <option>新規作成</option>
+        </select><br>
+        <input id="teameName" type="text"/><br>
+        <select id="members" size="6" style="width:100px;">
+
+        </select><input id="memberDelete" type="button" value="削除"/>
+        <br>
+        <input type="text" id="member" /><input id="memberAdd" type="button" value="追加"/><br>
+        
+        <input type="button" id="teamUpdate" value="更新" />
+        <input type="button" id="teamStatus" value="確認" />
         
     </div>
     <script  type="text/javascript" src="js/jquery-3.3.1.min.js" ></script>
