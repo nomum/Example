@@ -36,19 +36,23 @@ $(function(){
         $('#members > option:selected').remove();
     });
     $('#teamUpdate').click(function(){
+        console.log("[teamUpdate - click]--1")
         var teamname = $('#teameName').val();
         if ( teamname == ""){
             alert("チーム名が入力されていません。");
             return ;
         }
+        console.log("[teamUpdate - click]--2")
         if ($('#members').val() == ""){
         }
-
+        console.log("[teamUpdate - click]--3")
         var storage = localStorage["UserList2"];
-        if (storage == null){
+        console.log(storage)
+        if (storage == null || storage == ""){
             console.log("userlist2 is null");
             storage = {};
         }
+        console.log("[teamUpdate - click]--4")
         /*
         var userList2 = storage[teamname];
         if (userList2 == null){
@@ -58,13 +62,22 @@ $(function(){
         userListCreate();
         userList2[teamname] = userListCreate();
         */
-       storage[teamname] = userListCreate();
-
+        
+        var userList =  userListCreate();
+        console.log(userList);
+        //storage[teamname] = userListCreate();
+        storage[teamname] =userList;
+        console.log("----teamname-------")
+        console.log(teamname);
+        console.log("----strages-------")
         console.log(storage);
+        console.log("----strages-------")
         var temp = JSON.stringify( storage);
+        console.log("temp------")
+        console.log(temp)
         localStorage["UserList2"] = temp;
-        var s = localStorage["UserList2"];
-        console.log(s);
+        //var s = localStorage["UserList2"];
+        //console.log(s);
 
     });
     $('#teamStatus').click(function(){
@@ -82,6 +95,9 @@ $(function(){
         });
         */
     });
+    $('#teamAllDelete').click(function(){
+        localStorage["UserList2"] = null;
+    });
 
     userListCreate = function(){
         var list = [];
@@ -90,6 +106,7 @@ $(function(){
             //console.log($(e).val());
             list.push($(e).val());
         });
+        console.log("userListCreate---------------------")
         console.log(list);
         //var list[] = 
         return list;
