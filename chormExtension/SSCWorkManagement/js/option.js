@@ -35,9 +35,11 @@ $(function(){
     $('#memberDelete').click(function(){
         $('#members > option:selected').remove();
     });
+
     $('#teamUpdate').click(function(){
         console.log("[teamUpdate - click]--1")
         var teamname = $('#teameName').val();
+        console.log('teamNmae:' + teamname);
         if ( teamname == ""){
             alert("チーム名が入力されていません。");
             return ;
@@ -47,12 +49,26 @@ $(function(){
         }
         console.log("[teamUpdate - click]--3")
         var storage = localStorage["UserList2"];
+        console.log("storage---------------")
         console.log(storage)
-        if (storage == null || storage == ""){
+        console.log("storage---------------")
+        console.log("storage == null : " + storage === null)
+        console.log("storage == undefined : " + storage === undefined)
+        console.log("typeof :" + typeof storage)
+        console.log("storage=== :" + storage === "")
+        console.log("storage== :" + storage == "")
+        //if (storage == null ){
+        if (storage === undefined || storage === null){
+        //if (storage == "null" || storage == ""){
             console.log("userlist2 is null");
-            storage = {};
+            //storage = {};
+            storage =  new Array();
+
         }
         console.log("[teamUpdate - click]--4")
+        console.log("storage---------------")
+        console.log(storage)
+        console.log("storage---------------")
         /*
         var userList2 = storage[teamname];
         if (userList2 == null){
@@ -64,9 +80,12 @@ $(function(){
         */
         
         var userList =  userListCreate();
-        console.log(userList);
+        //console.log(userList);
         //storage[teamname] = userListCreate();
-        storage[teamname] =userList;
+        storage[teamname] =userListCreate();
+        
+        console.log("----storage[teamname]-------")
+        console.log(storage[teamname])
         console.log("----teamname-------")
         console.log(teamname);
         console.log("----strages-------")
