@@ -1,0 +1,15 @@
+2018-07-05 17:43:01,038 DEBUG [main] App [App.java : 20] debug message
+2018-07-05 17:43:01,040 INFO [main] App [App.java : 22] info message
+2018-07-05 17:43:01,041 WARN [main] App [App.java : 23] warn message
+2018-07-05 17:43:01,041 ERROR [main] App [App.java : 24] error message
+2018-07-05 17:48:16,691 DEBUG [main] App [App.java : 20] debug message
+2018-07-05 17:48:16,693 INFO [main] App [App.java : 22] info message
+2018-07-05 17:48:16,694 WARN [main] App [App.java : 23] warn message
+2018-07-05 17:48:16,694 ERROR [main] App [App.java : 24] error message
+2018-07-05 17:50:58,994 DEBUG [main] AA [App.java : 21] debug message
+2018-07-05 17:50:58,997 INFO [main] AA [App.java : 23] info message
+2018-07-05 17:50:58,998 WARN [main] AA [App.java : 24] warn message
+2018-07-05 17:50:58,999 ERROR [main] AA [App.java : 25] error message
+2018-07-05 17:51:55,569 ERROR [main] AA [App.java : 25] error message
+2018-07-05 17:52:21,532 ERROR [main] AA [App.java : 25] error message
+2018-07-05 17:52:37,462 ERROR [main] AA [App.java : 25] error message

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE logback>
+<configuration>
+
+
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+      <!--      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern> -->
+    </encoder>
+  </appender>
+
+  <appender name="AP1" level="TRACE" class="ch.qos.logback.core.FileAppender">
+    <file>AP1.log</file>
+    <encoder>
+      <pattern>%date %level [%thread] %logger{10} [%file : %line] %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <appender name="ERROR1" level="WARN" class="ch.qos.logback.core.FileAppender">
+    <file>ERROR1.log</file>
+    <encoder>
+      <pattern>%date %level [%thread] %logger{10} [%file : %line] %msg%n</pattern>
+    </encoder>
+  </appender>
+
+
+  <logger name="AA" level="DEBUG">
+      <appender-ref ref="AP1" />
+  </logger>
+<!--
+  <logger name="AA" level="ERROR">
+      <appender-ref ref="ERROR1" />
+  </logger>
+  -->
+
+
+  <root>
+    <appender-ref ref="STDOUT" />
+    <!--
+    <appender-ref ref="AP1" />
+    <appender-ref ref="ERROR1" />
+    -->
+  </root>
+</configuration>
