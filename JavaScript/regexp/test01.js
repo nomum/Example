@@ -57,6 +57,10 @@ function test1(val ,word){
     console.log(b);
 }
 
+function test2(val ,word){
+    
+}
+
 var a1 = "abc12defg";
 var t = a1.replace(/([1-9])/,'<$1>');
 //console.log(t);

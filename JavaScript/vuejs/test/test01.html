@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <h1>テスト０１</h1>
+    <div id="demo">
+        <p>{{ message }}</p>
+        <input v-model="message">
+    </div>
+    <h1>テスト02</h1>
+    <div id="example" >
+        <p> {{name}}は{{price*1.08}}円です。</p>
+    </div>
+    <h1>テスト03</h1>
+    <div id="example02" >
+        <p> {{name}}は{{priceWithTax }}円です。</p>
+    </div>
+    <script>
+        new Vue({
+            el: '#demo',
+            data: {
+                message: 'hello world!'
+            }
+        });
+        var vm = new Vue({
+            el : '#example',
+            data :{
+                name : 'みかん',
+                price: 100
+            }
+        });
+
+        var vm2 = new Vue({
+            el : 'example02',
+            data : {
+                name : 'みかん',
+                price : 100
+            },
+            Computed : {
+                priceWithTax : frunction(){
+                    //return this.price * 1.08;
+                    return this.price * 1.08
+
+                }
+            }
+
+        });
+
+    </script>
+
+</body>
+
+</html>
