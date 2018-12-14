@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF8" />
+        <!-- <script src="http:s//unpkg.com/vue"></script> -->
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+
+    </head>
+    <body>
+        <h1>hello vue! app1</h1>
+        <div id="app">
+            count:{{ count }}
+        </div>
+        <br>
+        <h1>hello vue! app2</h1>
+        <div id="app2" >
+            <div v-show="showFlg" >
+                表示されていないけどDOMにはいる。
+            </div>
+        </div>
+        <br>
+        <h1>hellow vue! app3 </h1>
+        <div id="app3">
+            <div v-if="showFlg">
+            表示されない
+            </div>
+            <div v-else>
+                表示される。
+            </div>
+        </div>
+        <br>
+
+        <h1>hello vue!  app4</h1>
+        <div id="app4">
+            <h2>array</h2>
+            <ul v-for="(item , index) in array">
+                <li>
+                    {{ item }} - {{ index }}
+                </li>
+            </ul>
+
+            <h2>object</h2>
+            <ul v-for="(val , key , index in object">
+                <li>{{ val }} - {{ key }} - {{ index }}</li>
+            </ul>
+        </div>
+
+        <script>
+            var newInstance = new Vue ({
+                //オプションを記述していく
+                el : "#app",
+                data: {
+                    count : 0
+                },
+                method: {
+                    countup: function(){
+                        this.count++;
+                    }
+                },
+                beforeCreated: {
+                    function(){
+                        console.log("Call before created");
+                    }
+                },
+                beforeMount: {
+                    function(){
+                        //ここでajaxでデータ取得して内部データの設定直度をする？
+                        console.log("Call beforeMount");
+                    }
+                },
+                mounted: {
+                    function(){
+                        console.log("Call mounted");
+                    }
+                },
+                beforeUpdate: {
+                    function(){
+                        console.log("call beforeUpdate");
+                    }
+                },
+                update: {
+                    function(){
+                        console.log("call update");
+                    }
+                },
+                beforeDestroy: {
+                    fucntino(){
+                        console.log("call beforeDestroy")
+                    }
+                },
+                destroyed: {
+                    function(){
+                        console.log("call destroyed");
+                    }
+                },
+                createed: {
+                    function(){
+                        //ここはインスタンスが作成されたときに呼び出される。
+                        console.log("call createed");
+                    }
+                }
+            });
+
+            var newInstance2 = new Vue({
+                el: "#app2",
+                data: {
+                    showFlg: false
+                }
+            });
+            var newInstance3 = new Vue({
+                el: "#app3",
+                data: {
+                    showFlg: false
+                }
+            });
+
+            var newInstance4 = new Vue({
+                el: "#app4",
+                data: {
+                    array: [
+                        "kongo",
+                        "hiei",
+                        "haruna",
+                        "kirishima"
+                        ],
+                    object: {
+                        "hoge": "hogehoge",
+                        "fuga": "fugafuga"
+                    },
+                    number: 10,
+                    string: "Lorem"
+                }
+            });
+
+        </script>
+    </body>
+</html>
