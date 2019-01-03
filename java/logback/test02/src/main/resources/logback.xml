@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true">
+
+	<!--<property name="LOG_DIR" value="/usr/patent/logs" /> -->
+	<property name="LOG_DIR" value="d:/" />
+	<appender name="APPLOG"
+		class="ch.qos.logback.core.FileAppender">
+		<!-- LOG_PATH は spring boot が設定している。logging.path から取得される値。 -->
+		<file>${LOG_DIR}/ApplicationLog_BTR.log</file>
+		<encoder>
+			<charset>UTF-8</charset>
+			<!--出力内容 -->
+			<pattern>%date{yyyy/MM/dd HH:mm:ss},%thread,%-5level,%message%n
+			</pattern>
+		</encoder>
+	</appender>
+	<appender name="AccessLog"
+		class="ch.qos.logback.core.FileAppender">
+		<file>${LOG_DIR}/AccessLog_BTR.log</file>
+		<encoder>
+			<charset>UTF-8</charset>
+			<!--出力内容 -->
+			<pattern>%date{yyyy/MM/dd HH:mm:ss},%message%n
+			</pattern>
+		</encoder>
+	</appender>
+	<logger name="AccessLog" level="info">
+		<appender-ref ref="AccessLog" />
+	</logger>
+	<logger name="jp.go.fss.btr" level="error">
+		<appender-ref ref="APPLOG" />
+	</logger>
+	<root >
+		
+	</root>
+</configuration>
