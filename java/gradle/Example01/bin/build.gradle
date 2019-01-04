@@ -1,0 +1,145 @@
+apply plugin: 'java'
+apply plugin: "application"
+
+class Descriptor {
+    String show(){
+        '***** これはGroovyScriptです。****'
+    }
+}
+println(new Descriptor().show())
+
+repositories.each{println it.name}
+repositories {
+    mavenCentral()
+}
+repositories.each{println it.name}
+
+// 依存関係の設定テスト①
+/*
+task task1 <<{
+    println 'task1'
+}
+task task2 <<{
+    println 'task2'
+}
+task task3 <<{
+    println 'task3'
+}
+task1.dependsOn task2
+task2.dependsOn task3
+//task1.dependsOn task2 , task3
+task1.dependsOn{
+    [task2,task3]
+}
+*/
+
+// 依存関係の設定テスト②
+task task2 << {
+    println 'task2'
+}
+task task3 << {
+    println 'task3'
+}
+task task1 (dependsOn:[task2,task3])<<{
+    println 'task1'
+}
+
+// 依存関係の設定テスト③
+task todo <<{
+    println 'todo'
+}
+task doing << {
+    println 'doing'
+}
+task done << {
+    println 'done'
+}
+// 正規表現で名前を検索して依存関係を追加する。
+done.dependsOn {
+    tasks.findAll{task -> task.name ==~ /.*ing/}
+
+}
+/*
+println 'findAll test -------'
+tasks.findAll{
+    task ->
+        println task.name
+        println task.name ==~ /.*ing/
+
+}
+println 'findAll test -------'
+*/
+
+/*
+task hello << {
+  println("Hello World!!")
+}
+*/
+// ↓今後はこっちにした方が良い
+/*
+task ('hello',{
+    println("Hello world!!")
+})
+*/
+FileTree sourceTree = fileTree(dir : "src")
+
+task ("hello")
+hello.configure({
+    println("configure")
+})
+hello.doFirst({
+    println("doFirtst")
+})
+hello.doLast({
+    println("doLast")
+    println(message)
+    sourceTree.each {File file ->
+        println file
+    }
+
+})
+/*
+
+FileTree sourceTree = fileTree("src")
+
+task hello << {
+    println(sourceTree)
+}
+*/
+
+
+// タスクルールの設定
+tasks.addRule('Pattern: show<TASK_NAMEE>: show task name.'){
+    taskName ->
+        if(taskName.startsWith('show')){
+            println '*** ' + taskName + '+++'
+        }
+}
+
+// タスクの上書き
+task assenble(overwrite : true)<<{
+    println " 上書きました"
+}
+
+// タスクの条件実行
+// gradle specialTask
+// gradle -PbuildType=partial-build specialTask
+task specialTask << {
+    println "特別な勝利を実行します。"
+}
+specialTask.onlyIf{
+    buildType == 'partial-build'
+}
+
+
+task skippedIfExceptionOccurred << {
+    println 'start'
+}
+skippedIfExceptionOccurred <<{
+    if (process == 'error'){
+        throw new StopExecutionException()
+    }
+}
+skippedIfExceptionOccurred <<{
+    println'end'
+}

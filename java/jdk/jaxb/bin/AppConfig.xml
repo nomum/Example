@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<appConfig>
+  <name>AAAA</name>
+  <PageInfoUrl>http://aaaa.jp</PageInfoUrl>
+  <getTextUrl>http://aaaa.jp</getTextUrl>
+  <monitoringTime>3000</monitoringTime>
+  <XSLTPath>c:/poc/data</XSLTPath>
+  <tempPath>c:/poc/temp/temp</tempPath>
+  <services>
+    <serviceConfig>
+      <countryCode>US</countryCode>
+    </serviceConfig>
+    <serviceConfig>
+      <countryCode>EP</countryCode>
+    </serviceConfig>
+  </services>
+</appConfig>

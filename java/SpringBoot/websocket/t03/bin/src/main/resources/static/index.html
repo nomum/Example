@@ -1,0 +1,30 @@
+<!DOCTYEP html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <title>websocket test</title>
+    </head>
+    <body>
+        <H1>websocket test</h1><br>
+        <input type="button" id="connectButton" onClick="connectButtonClick()" value="接続" />
+        <input type="button" id="disConnectButton" onClick="" value="切断" />
+
+
+        
+    </body>
+    <Script >
+        var ws;
+        function connectButtonClick(){
+            ws = new WebSocket('ws://localhost:8080/ws');
+	        ws.onmessage = function(data) {
+		        helloWorld(data.data);
+	        }
+    	    setConnected(true);
+
+        }
+        function setConnected(connected) {
+	        $("#connectButton").prop("disabled", connected);
+	        $("#disconnect").prop("disabled", !connected);
+        }
+    </Script>
+</html>
