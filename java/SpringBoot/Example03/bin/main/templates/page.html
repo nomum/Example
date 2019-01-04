@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8" />
+        <title>find page</title>
+        <style>
+            h1 { front-size:17px;font-weight:bold;color:gray;}
+            body {font-size:13px;color:gray;margin:3px 25px;}
+            tr { margin:5px;}
+            th { padding:5px; color:white; background: darkgray;}
+            td { padding:5px; color:black;background: #e0e0ff;}
+        </style>
+    </head>
+    <body>
+        <h1 th:text="${title}">find page</h1>
+        <p th:text="${msg}" />
+
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>名前</th>
+                <th>メール</th>
+                <th>年齢</th>
+            </tr>
+            <tr th:each="obj : ${dataList}" >
+                <td th:text="${obj.id}" />
+                <td th:text="${obj.name}" />
+                <td th:text="${obj.mail}" />
+                <td th:text="${obj.age}" />
+            </tr>
+            <tr>
+                <td colspan="5">
+                    <table class="nav">
+                        <tr>
+                            <td>
+                                <div style="text-align:left;">
+                                    <a th:href="${#myTLHelper.prevUrl(pagenumber)}">← Prev</a>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="text-align:center;">page</div>
+                            </td>
+                            <td >
+                                <div style="text-align : right;">
+                                    <a th:href="${#myTLHelper.nextUrl(pagenumber)}">Next →</a>
+                                </div>
+                            </td>
+                        </tr>
+
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

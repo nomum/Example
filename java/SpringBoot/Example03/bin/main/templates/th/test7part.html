@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8" />
+        <title>test7part</title>
+        <style>
+            h1 { font-size:18px;font-weight:bold;color:gray}
+            body{font-size:13px;color:black;margin:5px;25px;}
+        </style>
+        <style th:fragment="frag_style">
+            div.fragment {
+                border:solid 3px lightgray;
+                padding:0px 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Part page</h1>
+        <div th:fragment="frag_body">
+            <h2>fragment</h2>
+            <div class="fragment">
+                <p>this is fragment content.</p>
+                <p>sample message....</p>
+            </div>
+        </div>
+    </body>
+</html>

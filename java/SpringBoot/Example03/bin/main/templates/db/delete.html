@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8" />
+        <title>delete page</title>
+        <style>
+            h1{font-size:18px;font-weight:bold;color:gray;}
+            body{font-size:13px;color:gray;margin:5px 25px;}
+            td{padding:0px 20px;background:lightblue;}
+        </style>
+    </head>
+    <body>
+        <h1 th:text="#{content.title}" >edit page</h1>
+        <table>
+            <form method="POST" action="/db/delete" th:object="${formModel}" >
+                <input type="hidden" name="id" th:value="*{id}"/>
+                <tr><td><p th:text="|名前： *{name}|" ></p></td></tr>
+                <tr><td><p th:text="|年齢： *{age}|" ></p></td></tr>
+                <tr><td><p th:text="|mail： *{mail}|" ></p></td></tr>
+                <tr><td><p th:text="|メモ： *{memo}|" ></p></td></tr>
+                <tr><td><input type="submit" value="delete"/> </td></tr>
+
+            </form>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8" />
+        <title>find page</title>
+        <style>
+            h1 { front-size:17px;font-weight:bold;color:gray;}
+            body {font-size:13px;color:gray;margin:3px 25px;}
+            tr { margin:5px;}
+            th { padding:5px; color:white; background: darkgray;}
+            td { padding:5px; color:black;background: #e0e0ff;}
+        </style>
+    </head>
+    <body>
+        <h1 th:text="${title}">find page</h1>
+        <p th:text="${msg}" />
+        <table>
+            <form action="/db2/find" method="POST">
+                <tr>
+                    <td>FIND</td>
+                    <td><input type="text" name="fstr" size="20" th:value="${value}" /></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" /></td>
+                </tr>
+            </form>
+        </table>
+        <hr/>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>名前</th>
+                <th>メール</th>
+                <th>年齢</th>
+            </tr>
+            <tr th:each="obj : ${dataList}" >
+                <td th:text="${obj.id}" />
+                <td th:text="${obj.name}" />
+                <td th:text="${obj.mail}" />
+                <td th:text="${obj.age}" />
+            </tr>
+        </table>
+    </body>
+</html>

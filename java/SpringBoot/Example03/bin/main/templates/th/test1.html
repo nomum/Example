@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Thymlefe Test</title>
+    </head>
+    <body>
+        <h1>date</h1>
+        <p th:text="${new java.util.Date().toString()}"></p>
+        <h1>リテラル文字列</h1>
+        <p th:text="'one' + 'two' + 'three'"></p>
+        <h1>utility</h1>
+        <p th:text="${#dates.format(new java.util.Date(),'dd/MMM/yyyy HH:mm')}"></p>
+        <p th:text="${#numbers.formatInteger(1234,7)}"></p>
+        <p th:text="${#strings.toUpperCase('Welcome to Spring')}"></p>
+        <h1>message properties test</h1>
+        <p th:text="#{content.title}">hello page</p>
+        <p th:text="#{content.message}"></p>
+            
+    </body>
+</html>

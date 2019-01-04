@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8" />
+        <title>pickup page</title>
+        <style>
+            h1 { font-size:18px;font-weight:bold;color:gray;}
+            body { font-size:13px; color:gray; margin:5px 25px;}
+            tr { margin:5px;}
+            th { padding:5px;color:white;background: darkgray;}
+            td { padding:5px; color:black ; background: #e0e0ff;}
+        </style>
+    </head>
+    <body>
+        <h1 th:text="#{content.title}">hello page</h1>
+        <p th:text="${msg}"/>
+        <p th:utext="${data}" />
+    </body>
+</html>

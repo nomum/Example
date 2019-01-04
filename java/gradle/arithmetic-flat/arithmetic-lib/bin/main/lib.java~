@@ -1,0 +1,8 @@
+
+public class lib{
+
+    public void callMethod(String val){
+        System.out.println("callMethod : " + val);
+    }
+
+}

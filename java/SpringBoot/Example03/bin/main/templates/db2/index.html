@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Spring boot jpa examples</title>
+    </head>
+    <style>
+        h1{
+            font-size: 18px;
+            font-weight: bold;
+            color:gray;
+        }
+        body{
+            font-size: 13px;
+            color: gray;
+            margin:5px 25px;
+        }
+        tr { margin:5px;}
+        th {padding:5px; color:white;background :darkgrey}
+        td {padding:5px;color:black;background: #e0e0ff}
+        pre{
+            border:solid 3px #ddd;
+            padding:10px;
+        }
+        .err{color:red;}
+    </style>
+    <body>
+        <h1 th:text="#{content.title}">hello page</h1>
+        <p th:text="${msg}" />
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>名前</th>
+                <th>メール</th>
+                <th>年齢</th>
+                <th>メモ</th>
+            </tr>
+            <tr th:each="obj : ${dataList}" >
+                <td th:text="${obj.id}" />
+                <td th:text="${obj.name}" />
+                <td th:text="${obj.mail}" />
+                <td th:text="${obj.age}" />
+                <td th:text="${obj.memo}" />
+
+            </tr>
+        </table>
+ 
+    </body>
+</html>
