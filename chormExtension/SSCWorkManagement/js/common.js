@@ -9,7 +9,7 @@ $(function(){
     );
     */
     console.log($("#ScheduleContent div:first"));
-    $("#ScheduleContent div:first").append("<input id='customFilter' style='font-weight: bold;padding: 0.25em 0.5em;text-decoration: none;color: #00BCD4;background-color: #ECECEC;border-style: none;  border-radius: 0.5em;    ' type='button' value='チーム絞り込み' >")
+    $("#ScheduleContent div:first").append("<input id='customFilter' style='with:500px;font-weight: bold;padding: 0.25em 0.5em;text-decoration: none;color: #00BCD4;background-color: #ECECEC;border-style: none;  border-radius: 3px;    ' type='button' value='チーム絞り込み' >")
     //console.log("a");
     
 
@@ -24,19 +24,22 @@ chrome.runtime.sendMessage({action: "getLocalStorage"}, function(response) {
     */
 
    eraseRow = function ( teams){
+        var col =1;
         $("#ScheduleTable  tr").each(function(i, elem) {
             //console.log(i + ': ' + $(elem).text());
             var cells =$(elem).children();
-            var id = $(cells[1]).text().trim();
+            var id = $(cells[col]).text().trim();
             console.log(id);
-            //console.log($(cells[1]).text().trim());
-            //console.log($(elem).eq(2).text())
-            if (teams[id]){
-                console.log("hit : " + $(cells[1]).text().trim() );
-            }else{
-                $(elem).remove();
-            }
+            if (id === '特条'){
+                col = 3;
 
+            }else {
+                if (teams[id]){
+                    console.log("hit : " + $(cells[2]).text().trim() );
+                }else{
+                    $(elem).remove();
+                }
+            }
         });
     };
 
@@ -61,6 +64,7 @@ chrome.runtime.sendMessage({action: "getLocalStorage"}, function(response) {
                     console.log("list add :" + val);
                     
                 });
+                console.log("teams----"+teams);
                 console.log(teams);
                 eraseRow(teams);
             }else {

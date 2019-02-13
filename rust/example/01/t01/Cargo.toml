@@ -1,0 +1,7 @@
+[package]
+name = "t01"
+version = "0.1.0"
+authors = ["nomura <nomura@netssc.co.jp>"]
+edition = "2018"
+
+[dependencies]
