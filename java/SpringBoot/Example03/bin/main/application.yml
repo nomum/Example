@@ -1,0 +1,29 @@
+server:
+  port: 8090
+
+logging.level.: DEBUG
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto : update
+  datasource:
+#    driverClass: org.hsqldb.jdbcDriver
+#    url: jdbc:hsqldb:file:./db/testdb;shutdown=true
+#    user: sa
+    driverClassName: org.apache.derby.jdbc.EmbeddedDriver
+    url: jdbc:derby:db-apache
+    username: sa
+    password: sa
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+#      uri: mongodb://localhost/study # connection URL
+      database: study
+#      authentication-database: mongovwdb
+#      grid-fs-database:
+      username: test
+      password: test
+#      repositories:
+#        enabled: true  # if spring data repository support is enabled

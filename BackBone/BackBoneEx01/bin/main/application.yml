@@ -1,0 +1,8 @@
+
+server:
+  port: 8085
+  
+
+appSettings:
+  tempFile: E:/PL_LOG/Ftm/Search/Temp/BilingualTransration/temp,txt
+  dataFolder: E:/PL_LOG/Ftm/Search/data/BilingualTransration

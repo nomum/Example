@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8" />
+        <title>test4</title>
+        <style>
+            
+            tr { margin:5px;}
+            th {padding:5px; color:white;background :darkgrey}
+            td {padding:5px;color:black;background: #e0e0ff}
+        </style>
+    </head>
+    <body>
+        <h1 th:text="#{content.title}">hello</h1>
+        <table>
+            <Tr>
+                <th>NAME</th>
+                <th>MAIL</th>
+                <th>TEL</th>
+            </Tr>
+            <tr th:each="obj:${data}">
+                <td th:text="${obj[0]}" ></td>
+                <td th:text="${obj[1]}" ></td>
+                <td th:text="${obj[2]}" ></td>
+            </tr>
+        </table>
+    </body>
+</html>

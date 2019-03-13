@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<!-- LOG_PATH は spring boot が設定している。logging.path から取得される値。 -->
+	<!--
+    <property name="logpath" value="C:/poc/logs/" />
+    -->
+    <property name="logname" value="BilingualTranslation" />
+
+    <!--出力ルール～WEB～ -->
+    <!--場合によってはファイルサイズごとのRollに変更する -->
+    <appender name="FILE_WEB"
+        class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--日ごとにログファイル作成 -->
+        <!--
+        <file>${logpath}${logname}.log</file>
+        -->
+        <file>${LOG_PATH}/${logname}.log</file>
+        <!--
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+          <maxFileSize>10MB</maxFileSize>
+        </rollingPolicy>
+         -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+          <!--
+          <fileNamePattern>${logpath}${logname}.log.%d{yyyyMMdd}</fileNamePattern>
+          -->
+          <fileNamePattern>${LOG_PATH}/${logname}.log.%d{yyyyMMdd}</fileNamePattern>
+          <maxHistory>5</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <charset>UTF-8</charset>
+            <!--出力内容 -->
+            <pattern>%d{yyyy/MM/dd HH:mm:ss}\t%-5level\t%msg%n</pattern>
+        </encoder>
+    </appender>
+
+
+    <appender name="ACCESSLOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+      <!--
+      <file>${logpath}access.log</file>
+      -->
+      <file>${LOG_PATH}/access.log</file>
+      <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <!-- daily rollover -->
+      <fileNamePattern>${LOG_PATH}/logFile.%d{yyyy-MM-dd}.log</fileNamePattern>
+
+      <!-- keep 30 days' worth of history -->
+      <maxHistory>30</maxHistory>
+
+      </rollingPolicy>
+      <encoder>
+        <charset>UTF-8</charset>
+        <pattern>%d{yyyy/MM/dd HH:mm:ss.SSS}  - %msg%n</pattern>
+      </encoder>
+	</appender>
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <!-- encoders are assigned the type
+         ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+    <encoder>
+      <!--
+      <pattern>%-4relative [%thread] %-5level %logger{35} - %msg %n</pattern>
+      -->
+      <pattern>%d{yyyy/MM/dd HH:mm:ss}\t%-5level\t%msg%n</pattern>
+    </encoder>
+  </appender>
+    <logger name="ACCESSLOG">
+      <appender-ref ref="ACCESSLOG" level="info" />
+    </logger>
+    <logger name="jp.co.toshiba_sol" level="trace" >
+     <appender-ref ref="STDOUT" />
+     <appender-ref ref="FILE_WEB" />
+    </logger>
+    <root level="DEBUG">
+        <appender-ref ref="STDOUT" />
+    </root>
+
+</configuration>

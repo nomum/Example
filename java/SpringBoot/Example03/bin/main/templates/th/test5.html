@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8" />
+        <title>test5</title>
+    </head>
+    <body>
+        <h1 th:text="#{content.title}">hello</h1>
+        <table th:inline="text">
+            <tr>
+                <th>ID</th>
+                <th>NAME</th>
+                <th>MAIL</th>
+            </tr>
+            <tr th:each="obj : ${data}">
+                <td>[[${obj.id}]]</td>
+                <td>[[${obj.name}]]</td>
+                <td>[[${obj.value}]]</td>
+            </tr>
+        </table>
+    </body>
+</html>
